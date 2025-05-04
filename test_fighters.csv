@@ -1,0 +1,3 @@
+name,nickname,wins,losses,draws,height_cm,weight_in_kg,reach_in_cm,stance,date_of_birth,significant_strikes_landed_per_minute,significant_striking_accuracy,significant_strikes_absorbed_per_minute,significant_strike_defence,average_takedowns_landed_per_15_minutes,takedown_accuracy,takedown_defense,average_submissions_attempted_per_15_minutes
+
+A,,10,2,1,180.0,70.0,190.0,Orthodox,1990-01-01,5.0,0.5,3.0,0.6,30.0,0.4,0.7,15.0

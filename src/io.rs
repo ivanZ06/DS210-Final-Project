@@ -5,6 +5,7 @@ use csv::{ReaderBuilder, StringRecord};
 use serde::Deserialize;
 use chrono::NaiveDate;
 
+/// initialize the date_of_birth representation
 mod date_format {
     use chrono::NaiveDate;
     use serde::{self, Deserialize, Deserializer};
@@ -19,7 +20,7 @@ mod date_format {
     }
 }
 
-/// Matches exactly your 18 CSV columns.
+/// Represents the data columns of each fighter
 #[derive(Debug, Deserialize)]
 pub struct FighterRecord {
     #[serde(rename = "name")]   pub name: String,
@@ -49,6 +50,10 @@ pub struct FighterRecord {
                                       pub average_submissions_attempted_per_15_minutes: Option<f32>,
 }
 
+/// reads the csv file and store the data as a vector of struct FighterRecord
+/// input: the file path
+/// output: use Result in case of error, but the correct output is a vector of FighterRecord
+/// logic: read the file, extract the header, skip empty or wrong rows, deserialize the rows, and return the output
 pub fn load_csv(path: &str) -> Result<Vec<FighterRecord>, Box<dyn Error>> {
     let file = File::open(path)?;
     let mut rdr = ReaderBuilder::new()
