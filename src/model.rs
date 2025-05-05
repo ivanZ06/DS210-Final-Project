@@ -1,6 +1,4 @@
-// src/model.rs
-//! Module for training regression models on cleaned UFC data.
-//! Provides a linear regression implementation that includes one-hot, absolute, and ratio features.
+///Trains a linear regression model on the cleaned data
 
 use linfa::prelude::*;
 use linfa_linear::LinearRegression;
@@ -9,13 +7,11 @@ use crate::preprocess::{CleanRecord, WeightClass};
 use std::error::Error;
 
 /// Train a linear regression model on CleanRecord data and rank features by coefficient magnitude.
-///
-/// # Inputs
-/// - `records`: slice of preprocessed `CleanRecord` rows.
-///
-/// # Outputs
-/// - `Ok(Vec<(String, f64)>)`: sorted list of (feature_name, coefficient) pairs by descending |coefficient|.
-/// - `Err`: if model training fails.
+/// Inputs: slice of preprocessed "CleanRecord" rows.
+/// Outputs: sorted list of (feature_name, coefficient) pairs by descending |coefficient|; "Err": if model training fails.
+/// Logic: Build an ndarray matrix of 19 columns (2 stance flags, 7 class flags, 10 numerics); 
+/// Build target vector from win_rate; Fit linfa_linear::LinearRegression (with intercept); 
+/// Pair coefficients with feature names; Sort by descending absolute value
 pub fn train_model(
     records: &[CleanRecord]
 ) -> Result<Vec<(String, f64)>, Box<dyn Error>> {

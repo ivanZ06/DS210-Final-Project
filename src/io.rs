@@ -1,4 +1,4 @@
-// Module for loading and validating the data. It reads the csv file, validates headers, and handles missing data.
+/// Module for loading and validating the data. It reads the csv file, validates headers, and handles missing data.
 use std::error::Error;
 use std::fs::File;
 use csv::{ReaderBuilder, StringRecord};
@@ -11,6 +11,10 @@ mod date_format {
     use serde::{self, Deserialize, Deserializer};
     const FMT: &str = "%Y-%m-%d";
 
+    /// Custom "serde" deserializer for a “YYYY-MM-DD” date string  
+    /// input: any "Deserializer"
+    /// output: "Result<NaiveDate, D::Error>"
+    /// logic: deserialize into "String", parse with "NaiveDate::parse_from_str", map errors via "serde::de::Error::custom"
     pub fn deserialize<'de, D>(d: D) -> Result<NaiveDate, D::Error>
     where
         D: Deserializer<'de>,
@@ -20,7 +24,7 @@ mod date_format {
     }
 }
 
-/// Represents the data columns of each fighter
+/// Represents the data columns of each fighter; used to represent each row in the file
 #[derive(Debug, Deserialize)]
 pub struct FighterRecord {
     #[serde(rename = "name")]   pub name: String,
